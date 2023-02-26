@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Arztbewertung</title>
+  <style>
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .doctor-card {
+      display: inline-block;
+      width: 300px;
+      height: 400px;
+      margin: 20px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .doctor-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .doctor-card h3 {
+      margin-top: 20px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .doctor-card p {
+      margin-top: 10px;
+      font-size: 18px;
+    }
+
+    .rating-section {
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    .rating-section label {
+      font-size: 18px;
+    }
+
+    .rating-section input[type="radio"] {
+      display: none;
+    }
+
+    .rating-section .star {
+      cursor: pointer;
+      float: right;
+      color: #ccc;
+      padding: 10px;
+      font-size: 36px;
+      transition: all .2s;
+    }
+
+    .rating-section .star:hover,
+    .rating-section .star:hover ~ .star {
+      color: #ffa800;
+    }
+
+    .rating-section input[type="radio"]:checked ~ .star {
+      color: #ffa800;
+    }
+
+    .review-section {
+      margin-top: 20px;
+    }
+
+    .review-section textarea {
+      width: 100%;
+      height: 100px;
+      resize: none;
+      padding: 10px;
+      font-size: 18px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+    }
+
+    .review-section button {
+      padding: 10px 20px;
+      border-radius: 5px;
+      background-color: #ffa800;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Arztbewertung</h2>
+    <div class="doctor-card">
+      <img src="doctor1.jpg" alt="Doctor 1">
+      <h3>Dr. Max Mustermann</h3>
+      <p>Facharzt für Allgemeinmedizin</p>
+      <div class="rating-section">
+        <label>Bewertung:</label>
+        <input type="radio" name="rating" id="star5" value="5">
+        <label for="star5" class="star> 
