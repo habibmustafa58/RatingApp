@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arztbewertung</title>
+</head>
+<body>
+    <h1>Arztbewertung</h1>
+    <h2>Anmeldung</h2>
+    <form action="/anmeldung" method="post">
+        <label for="email">E-Mail:</label>
+        <input type="email" id="email" name="email" required><br>
+        <label for="passwort">Passwort:</label>
+        <input type="password" id="passwort" name="passwort" required><br>
+        <input type="submit" value="Anmelden">
+    </form>
+
+    <h2>Registrierung</h2>
+    <form action="/registrierung" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br>
+        <label for="email">E-Mail:</label>
+        <input type="email" id="email" name="email" required><br>
+        <label for="passwort">Passwort:</label>
+        <input type="password" id="passwort" name="passwort" required><br>
+        <label for="accountTyp">Account-Typ:</label>
+        <select id="accountTyp" name="accountTyp" required>
+            <option value="Patient">Patient</option>
+            <option value="Arzt">Arzt</option>
+        </select><br>
+        <input type="submit" value="Registrieren">
+    </form>
+
+    <h2>Bewertung abgeben</h2>
+    <form action="/bewertung" method="post">
+        <label for="arztName">Arzt-Name:</label>
+        <input type="text" id="arztName" name="arztName" required><br>
+        <label for="bewertung">Bewertung (1-5):</label>
+        <input type="number" id="bewertung" name="bewertung" min="1" max="5" required><br>
+        <label for="kommentar">Kommentar:</label>
+        <textarea id="kommentar" name="kommentar" required></textarea><br>
+        <input type="submit" value="Bewertung abgeben">
+    </form>
+
+    <h2>Bewertungen ansehen</h2>
+    <form action="/bewertungen" method="get">
+        <label for="arztName">Arzt-Name:</label>
+        <input type="text" id="arztName" name="arztName" required><br>
+        <input type="submit" value="Bewertungen anzeigen">
+    </form>
+</body>
+</html>
+
+ 
