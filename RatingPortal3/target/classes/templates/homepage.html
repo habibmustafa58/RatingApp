@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rating System</title>
+</head>
+<body>
+  <h1>Willkommen beim Rating-System</h1>
+  
+  <h2>Wähle einen Arzt:</h2>
+  <ul>
+    <li>
+      <h3>Dr. John Doe</h3>
+      <p>Beschreibung des Arztes.</p>
+      <form action="submit_rating.php" method="post">
+        <label for="john-doe-rating">Bewertung (1-5):</label>
+        <input type="number" id="john-doe-rating" name="john-doe-rating" min="1" max="5" required>
+        <input type="hidden" name="doctor" value="John Doe">
+        <input type="submit" value="Bewertung abgeben">
+      </form>
+    </li>
+    <li>
+      <h3>Dr. Jane Smith</h3>
+      <p>Beschreibung der Ärztin.</p>
+      <form action="submit_rating.php" method="post">
+        <label for="jane-smith-rating">Bewertung (1-5):</label>
+        <input type="number" id="jane-smith-rating" name="jane-smith-rating" min="1" max="5" required>
+        <input type="hidden" name="doctor" value="Jane Smith">
+        <input type="submit" value="Bewertung abgeben">
+      </form>
+    </li>
+  </ul>
+  
+</body>
+</html>
+
+<!--
+	<!DOCTYPE html>
+<html>
+<head>
+	<title>Rating System</title>
+</head>
+<body>
+	<h1>Rating System</h1>
+	<p>Bitte wählen Sie den Arzt aus, den Sie bewerten möchten:</p>
+	<form>
+		<input type="radio" id="dr_john_doe" name="doctor" value="Dr. John Doe">
+		<label for="dr_john_doe">Dr. John Doe</label><br>
+		<input type="radio" id="dr_jane_smith" name="doctor" value="Dr. Jane Smith">
+		<label for="dr_jane_smith">Dr. Jane Smith</label><br><br>
+		<label for="rating">Bitte geben Sie Ihre Bewertung ab:</label>
+		<select id="rating" name="rating">
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+		</select><br><br>
+		<button type="submit">Bewerten</button>
+	</form>
+	<br>
+	<button onclick="logout()">Logout</button>
+	
+	<script>
+		function logout() {
+			// Hier kann die Logout-Funktionalität implementiert werden
+		}
+	</script>
+</body>
+</html>
+
+-->
