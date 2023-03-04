@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Arzt Ratings</title>
+</head>
+<body>
+	<h1>Arzt Ratings</h1>
+
+	<table>
+		<tr>
+			<th>Patient</th>
+			<th>Note</th>
+		</tr>
+		<!-- Hier werden die Bewertungen des eingeloggten Arztes angezeigt -->
+		{% for rating in ratings %}
+			{% if user_email.endswith('@doc.de') and rating.doctor.email == user_email %}
+			<tr>
+				<td>{{ rating.patient.name }} {{ rating.patient.surname }}</td>
+				<td>{{ rating.rating }}</td>
+			</tr>
+			{% endif %}
+		{% endfor %}
+	</table>
+
+	<a href="/logout">Logout</a>
+
+</body>
+</html>
