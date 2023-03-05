@@ -2,8 +2,8 @@ package edu.fra.uas.patient.controller;
 
 import java.util.List;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+//import org.springframework.security.core.Authentication;
+//import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,22 +26,22 @@ public class PatientController {
 		this.patientService = patientService;
 	}
 
-	@GetMapping("/current")
-	public Patient getCurrentUser() {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String username = authentication.getName();
-		return patientService.findPatientByName(username);
-	}
-
-	@PostMapping("/current")
-	public void updateCurrentUser(@RequestBody Patient patient) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String username = authentication.getName();
-		Patient currentUser = patientService.findPatientByName(username);
-		currentUser.setPassword(patient.getPassword());
-		currentUser.setRole(patient.getRole());
-		patientService.addPatient(currentUser);
-	}
+//	@GetMapping("/current")
+//	public Patient getCurrentUser() {
+//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//		String username = authentication.getName();
+//		return patientService.findPatientByName(username);
+//	}
+//
+//	@PostMapping("/current")
+//	public void updateCurrentUser(@RequestBody Patient patient) {
+//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//		String username = authentication.getName();
+//		Patient currentUser = patientService.findPatientByName(username);
+//		currentUser.setPassword(patient.getPassword());
+//		currentUser.setRole(patient.getRole());
+//		patientService.addPatient(currentUser);
+//	}
 
 	@GetMapping ("/all")
 	public List<Patient> getAllPatients() {
@@ -49,17 +49,17 @@ public class PatientController {
 	}
 
 	@GetMapping("/{id}")
-	public Patient getPatientById(@PathVariable Long id) {
+	public Patient getPatientById(@PathVariable long id) {
 		return patientService.getPatientById(id);
 	}
 
 	@PutMapping("/{id}")
-	public Patient updatePatient(@PathVariable Long id, @RequestBody Patient patient) {
+	public Patient updatePatient(@PathVariable long id, @RequestBody Patient patient) {
 		return patientService.updatePatient(id, patient);
 	}
 
 	@DeleteMapping("/{id}")
-	public void deletePatient(@PathVariable Long id) {
+	public void deletePatient(@PathVariable long id) {
 		patientService.deletePatient(id);
 	}
 }

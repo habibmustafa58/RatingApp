@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.fra.uas.currentuser.*;
@@ -47,10 +50,14 @@ public class ApiController {
 		}
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<Rating> createRating(@RequestBody Rating rating, Model model) {
+    @RequestMapping(value = "/rating",
+			method = RequestMethod.POST,
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Rating> createRating(@RequestBody Rating rating) {
     	
         Rating newRating = ratingService.createRating(rating);
+//        model.addAttribute("rating", newRating);
         return ResponseEntity.ok().body(newRating);
     }
 

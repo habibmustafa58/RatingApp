@@ -19,11 +19,8 @@ public class RatingServiceImpl implements RatingService {
 	@Autowired
 	private final RatingRepository ratingRepository;
 
-	@Autowired
-	private final PatientRepository patientRepository;
 
-	public RatingServiceImpl(PatientRepository patientRepository, RatingRepository ratingRepository) {
-		this.patientRepository = patientRepository;
+	public RatingServiceImpl(RatingRepository ratingRepository) {
 		this.ratingRepository = ratingRepository;
 
 	}
