@@ -15,13 +15,13 @@ public interface DoctorService {
 	 
 	 public List<Doctor> getAllDoctors();
 	 
-	 public Doctor getDoctorById(int id);
+	 public Doctor getDoctorById(long id);
 	 
 	 public Doctor addDoctor(Doctor doctor);
 	 
-	 public Doctor updateDoctor(int id, Doctor doctor);
+	 public Doctor updateDoctor(long id, Doctor doctor);
 	 
-	 public boolean deleteDoctor(int id);
+	 public boolean deleteDoctor(long id);
 	
 	
 	

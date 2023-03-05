@@ -42,11 +42,15 @@ public class DoctorServiceImpl implements DoctorService {
 
 	
 @Override	    
-	    public List<Doctor> getAllDoctors() {
-	        return doctorRepository.findAll();
-	    }
+		public List<Doctor> getAllDoctors() {
+    		return doctorRepository.findAll();
+		}
+	
+	
+	        
+	    
 @Override	    
-	    public Doctor getDoctorById(int id) {
+	    public Doctor getDoctorById(long id) {
 	        return doctorRepository.findAll().stream().filter(d -> d.getId() == id).findFirst().orElse(null);
 	    }
 @Override	    
@@ -57,7 +61,7 @@ public class DoctorServiceImpl implements DoctorService {
 	        return doctor;
 	    }
 @Override	    
-	    public Doctor updateDoctor(int id, Doctor doctor) {
+	    public Doctor updateDoctor(long id, Doctor doctor) {
 	        Doctor existingDoctor = getDoctorById(id);
 	        if (existingDoctor == null) {
 	            return null;
@@ -69,7 +73,7 @@ public class DoctorServiceImpl implements DoctorService {
 	    }
 
 @Override	    
-	    public boolean deleteDoctor(int id) {
+	    public boolean deleteDoctor(long id) {
 	        Doctor doctor = getDoctorById(id);
 	        if (doctor == null) {
 	            return false;

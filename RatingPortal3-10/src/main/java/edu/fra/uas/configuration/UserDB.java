@@ -12,6 +12,7 @@ import edu.fra.uas.user.model.Patient;
 import edu.fra.uas.user.model.Role;
 import jakarta.annotation.PostConstruct;
 import edu.fra.uas.rating.model.*;
+import edu.fra.uas.rating.repository.RatingRepository;
 
 
 @Component
@@ -21,7 +22,11 @@ public class UserDB {
 	DoctorRepository doctorRepository;
 	
 	@Autowired
+	RatingRepository ratingRepository;
+	
+	@Autowired
 	PatientRepository patientRepository;
+	
 	
 	
 	@PostConstruct
@@ -59,12 +64,13 @@ public class UserDB {
 		patientRepository.save(patient5);
 		
 		
-		Rating rating = new Rating(1, 3, doc3, patient6);
+		Rating rating = new Rating(1, 3, patient6);
 		
 		doc3.getRatings().add(rating);
 		
 		
 		doctorRepository.save(doc3);
+		ratingRepository.addRating(rating);
 		patientRepository.save(patient6);
 		
 	}

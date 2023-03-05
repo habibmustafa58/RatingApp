@@ -1,6 +1,5 @@
 package edu.fra.uas.rating.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -11,61 +10,58 @@ import edu.fra.uas.doctor.repository.DoctorRepository;
 import edu.fra.uas.patient.repository.PatientRepository;
 import edu.fra.uas.rating.dto.RatingDTO;
 import edu.fra.uas.rating.model.Rating;
+import edu.fra.uas.rating.repository.RatingRepository;
 import edu.fra.uas.user.model.Doctor;
 import edu.fra.uas.user.model.Patient;
 
 @Service
 public class RatingServiceImpl implements RatingService {
 
-	    private final List<Rating> ratings = new ArrayList<>();
 	    
-	    private final DoctorRepository doctorRepository;
+	    private final RatingRepository ratingRepository;
 	    private final PatientRepository patientRepository;
  
 	    
 	    
-	    public RatingServiceImpl(DoctorRepository doctorRepository, PatientRepository patientRepository) {
-	        this.doctorRepository = doctorRepository;
+	    public RatingServiceImpl(PatientRepository patientRepository, RatingRepository ratingRepository) {
 	        this.patientRepository = patientRepository;
+	        this.ratingRepository = ratingRepository;
 	        
 	    }
    	
 	    
 @Override
 	    public List<Rating> getAllRatings() {
-		for (Doctor doctor : doctorRepository.getDoctors()) {
-			for (Rating rating :  doctor.getRatings()) {
-					ratings.add(rating);
-				} 
-			}
-	        return ratings;
+	        return ratingRepository.getAllRatings();
 	    }
 
 @Override
 	    public RatingDTO getRatingById(long id) {
-	     Rating r1 = ratings.stream()
+	     Rating r1 = ratingRepository.getAllRatings().stream()
 	                .filter(rating -> rating.getId().equals(id))
 	                .findFirst()
 	                .orElseThrow(() -> new NoSuchElementException(String.format("User mit folgender Id nicht gefunden: ", id)));
-	        RatingDTO ratingDTO = new RatingDTO();
+	        
+	     RatingDTO ratingDTO = new RatingDTO();
+	        
+	       
 	        BeanUtils.copyProperties(r1, ratingDTO);
 	        return ratingDTO;
 //	                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Rating not found"));
 	    }
 @Override
 	    public Rating createRating(int ratingValue, long doctorId, long patientId) {
-	        Doctor doctor = doctorRepository.findById(doctorId);
 	        Patient patient = (Patient) patientRepository.findById(patientId);
 	        
-	        Rating rating = new Rating (ratingValue, doctor, patient);
-	        rating.setId(ratings.size() + 1);
-	        ratings.add(rating);
+	        Rating rating = new Rating (ratingValue, patient);
+	        rating.setId(ratingRepository.getAllRatings().size() + 1);
+	        ratingRepository.getAllRatings().add(rating);
 	        return rating;
 	    }
 
 @Override
 	    public Rating updateRating(long id, RatingDTO ratingDTO) {
-	        Rating r2 = ratings.stream()
+	        Rating r2 = ratingRepository.getAllRatings().stream()
 	                .filter(rating -> rating.getId().equals(id))
 	                .findFirst()
 	                .orElseThrow(() -> new NoSuchElementException(String.format(">>> User=%s not found", id)));
@@ -76,17 +72,16 @@ public class RatingServiceImpl implements RatingService {
 	    }
 @Override
 	    public void deleteRating(long id) {
-	        Rating r3 = ratings.stream()
+	        Rating r3 = ratingRepository.getAllRatings().stream()
 	                .filter(rating -> rating.getId().equals(id))
 	                .findFirst()
 	                .orElseThrow(() -> new NoSuchElementException(String.format(">>> User=%s not found", id)));
 
-	        ratings.remove(r3);
-	        r3.getDoctor().getRatings().remove(r3);
+	        ratingRepository.getAllRatings().remove(r3);
 	    }
 @Override
 		public List<Rating> getRatings() {
-				return ratings;
+				return ratingRepository.getAllRatings();
 		}
 
 

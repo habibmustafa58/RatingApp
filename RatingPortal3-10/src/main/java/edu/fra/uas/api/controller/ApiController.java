@@ -29,7 +29,7 @@ public class ApiController {
         this.ratingService = ratingService;
     }
 
-    @GetMapping ("/all")
+    @GetMapping("/all")
     public List<Rating> getAllRatings() {
         return ratingService.getAllRatings();
     }
@@ -53,12 +53,12 @@ public class ApiController {
 //    }
 
     @PutMapping("/{id}")
-    public Rating updateRating(@PathVariable Long id, @RequestBody RatingDTO ratingDto) {
+    public Rating updateRating(@PathVariable long id, @RequestBody RatingDTO ratingDto) {
         return ratingService.updateRating(id, ratingDto);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteRating(@PathVariable Long id) {
+    public void deleteRating(@PathVariable long id) {
         ratingService.deleteRating(id);
     }
 }
