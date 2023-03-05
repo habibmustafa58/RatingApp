@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import edu.fra.uas.rating.model.Rating;
 import edu.fra.uas.user.model.Doctor;
 
 @Component
@@ -43,6 +44,26 @@ public class DoctorRepository {
             
         }
     }
+    
+	public double getAverageRatingForDoctor(long doctorId) {
+		Doctor doctor = findById(doctorId);
+		List<Rating> ratings = doctor.getRatings();
+		double sum = 0;
+		for (Rating rating : ratings) {
+			sum += rating.getRatingValue();
+		}
+		return sum / ratings.size();
+	}
+	
+	public double getAverageRatingForDoctorByDoctor(Doctor doctor) {		
+		List<Rating> ratings = doctor.getRatings();
+		double sum = 0;
+		for (Rating rating : ratings) {
+			sum += rating.getRatingValue();
+		}
+		return sum / ratings.size();
+	}
+
 
 	public List<Doctor> getDoctors() {
 		return doctors;

@@ -8,6 +8,13 @@ public class Patient extends User {
 //	public Patient() {
 //		super();
 //	}
-    
 
+	@Override
+	public String toString() {
+		return "Patient []";
+	}
+    
+	
+	
+	
 }

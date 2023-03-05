@@ -48,17 +48,7 @@ public class DoctorServiceImpl implements DoctorService {
 		return doctorRatings;
 	}
 
-	@Override
-	public double getAverageRatingForDoctor(long doctorId) {
-		Doctor doctor = doctorRepository.findById(doctorId);
-		List<Rating> ratings = doctor.getRatings();
-		double sum = 0;
-		for (Rating rating : ratings) {
-			sum += rating.getRatingValue();
-		}
-		return sum / ratings.size();
-	}
-
+	
 	@Override
 	public List<Doctor> getAllDoctors() {
 		return doctorRepository.findAll();

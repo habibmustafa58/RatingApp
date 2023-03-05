@@ -17,6 +17,9 @@ public class Rating {
         this.patient = patient;
     }
 
+	public Rating(int ratingValue) {
+	}
+	
 	public Long getId() {
 		return id;
 	}

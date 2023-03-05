@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Home - Doctor</title>
+</head>
+<body>
+	<h1>Welcome Doctor!</h1>
+	<p>Here are your ratings:</p>
+	<ul>
+		 Loop through ratings 
+		<th:block th:each="rating : ${ratings}">
+			<li>
+				<p>Patient: <span th:text="${rating.patient.email}"></span></p>
+				<p>Ratin: <span th:text="${rating.ratingValue}"></span></p>
+			</li>
+		</th:block>
+	</ul>
+</body>
+</html>
+<!-- <!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home - Doctor</title>
+</head>
+<body>
+    <h1>Welcome, Doctor!</h1>
+    <h2>Your average rating is: ${avgRating}</h2>
+    <h3>Patients' ratings:</h3>
+    <table>
+        <tr>
+            <th>Patient</th>
+            <th>Rating</th>
+        </tr>
+        <tbody>
+        <list ratings as rating>
+            <tr>
+                <td>${rating.patientEmail}</td>
+                <td>${rating.rating}</td>
+            </tr>
+        </list>
+        </tbody>
+    </table>
+</body>
+</html>
+-->

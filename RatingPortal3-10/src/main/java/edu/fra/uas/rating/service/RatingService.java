@@ -17,7 +17,7 @@ public interface RatingService {
 
 	public Rating updateRating(long id, RatingDTO ratingDTO);
 
-	public void deleteRating(long id);
+	public boolean deleteRating(long id);
 
 	public List<Rating> getRatings();
 

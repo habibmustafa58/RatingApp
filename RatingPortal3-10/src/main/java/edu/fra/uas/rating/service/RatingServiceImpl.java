@@ -11,6 +11,7 @@ import edu.fra.uas.patient.repository.PatientRepository;
 import edu.fra.uas.rating.dto.RatingDTO;
 import edu.fra.uas.rating.model.Rating;
 import edu.fra.uas.rating.repository.RatingRepository;
+import edu.fra.uas.user.model.Doctor;
 import edu.fra.uas.user.model.Patient;
 
 @Service
@@ -75,12 +76,12 @@ public class RatingServiceImpl implements RatingService {
 	}
 
 	@Override
-	public void deleteRating(long id) {
-		Rating r3 = ratingRepository.getAllRatings().stream().filter(rating -> rating.getId().equals(id)).findFirst()
-				.orElseThrow(
-						() -> new NoSuchElementException(String.format("Rating with following id not found:", id)));
-
-		ratingRepository.getAllRatings().remove(r3);
+	public boolean deleteRating(long id) {
+		Rating rating = getRatingById1(id);
+		if (rating == null) {
+			return false;
+		}
+		return ratingRepository.getAllRatings().remove(rating);
 	}
 
 	@Override

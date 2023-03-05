@@ -31,11 +31,23 @@ public class UserDB {
 	
 	@PostConstruct
 	public void init() {
+						
+		Doctor doc1 = new Doctor();
+		doc1.setId(1);
+		doc1.setName("Dr. John Doe");
+		doc1.setEmail("johndoe@doc.de");
+		doc1.setPassword("passd1");
+		doc1.setRatings(new ArrayList<Rating>());
 		
+	
+		Doctor doc2 = new Doctor();
+		doc2.setId(2);
+		doc2.setName("Dr. Jane Smith");
+		doc2.setEmail("janesmith@doc.de");
+		doc2.setPassword("passd2");
+		doc2.setRatings(new ArrayList<Rating>());
+				
 		
-		
-		Doctor doc1 = new Doctor(1, "Dr. John Doe", "johndoe@doc.de", "passd1", new ArrayList<Rating>());
-		Doctor doc2 = new Doctor(2, "Dr. Jane Smith", "janesmith@doc.de","passd2", new ArrayList<Rating>());
 		Doctor doc3 = new Doctor();
 		doc3.setId(3);
 		doc3.setName("TestDoc");
@@ -43,8 +55,7 @@ public class UserDB {
 		doc3.setRatings(new ArrayList<Rating>());
 		doc3.setRole(Role.DOCTOR);
 		
-		
-				
+						
 		doctorRepository.save(doc1);
 		doctorRepository.save(doc2);
 		
@@ -68,6 +79,13 @@ public class UserDB {
 		
 		doc3.getRatings().add(rating);
 		
+		double avgFromDoc1 = doc1.getAverageFromRatings();
+		double avgFromDoc2 = doc2.getAverageFromRatings();
+		double avgFromDoc3 = doc3.getAverageFromRatings();
+		
+		doc1.setAvgRating(avgFromDoc1);
+		doc2.setAvgRating(avgFromDoc2);
+		doc3.setAvgRating(avgFromDoc3);
 		
 		doctorRepository.save(doc3);
 		ratingRepository.addRating(rating);

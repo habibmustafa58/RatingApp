@@ -1,38 +1,16 @@
 package edu.fra.uas.currentuser;
 
-import edu.fra.uas.user.model.Role;
-import edu.fra.uas.user.model.User;
+import org.springframework.stereotype.Component;
 
-public class CurrentUser extends User {
+@Component
+public class CurrentUser {
+    private String username;
 
-    private User user;
-
-    public CurrentUser(User user) {
-    	super(user.getId(), user.getName(), user.getEmail(), user.getPassword(), user.getRole());
-    	this.user = user;
-    }
-    
-    public User getUser() {
-        return user;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public long getId() {
-        return user.getId();
+    public String getUsername() {
+        return username;
     }
-
-    public String getName() {
-        return user.getName();
-    }
-    
-    public Role getRole() {
-    	return user.getRole();
-    }
-
-    @Override
-    public String toString() {
-        return "CurrentUser{" +
-                "user=" + user +
-                "} " + super.toString();
-    }
-
 }

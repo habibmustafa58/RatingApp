@@ -26,66 +26,69 @@ import edu.fra.uas.rating.service.RatingService;
 @RestController
 @RequestMapping("/ratings")
 public class ApiController {
-	
-    private final RatingService ratingService;
 
-    public ApiController(RatingService ratingService) {
-        this.ratingService = ratingService;
-    }
+	private final RatingService ratingService;
 
-    @GetMapping("/all")
-    public List<Rating> getAllRatings() {
-    	
-        return ratingService.getAllRatings();
-    }
+	public ApiController(RatingService ratingService) {
+		this.ratingService = ratingService;
+	}
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Object> getRatingById(@PathVariable long id) {
-    	try {
-    	RatingDTO ratingDTO = ratingService.getRatingById(id);
-        return new ResponseEntity<>(ratingDTO, HttpStatus.OK);
-    	} catch (NoSuchElementException e) {
+	@GetMapping("/all")
+	public List<Rating> getAllRatings() {
+		return ratingService.getAllRatings();
+	}
+
+	@GetMapping("/{id}")
+	public ResponseEntity<Object> getRatingById(@PathVariable long id, Model model) {
+		try {
+			RatingDTO ratingDTO = ratingService.getRatingById(id);
+			model.addAttribute(ratingDTO);
+			return new ResponseEntity<>(ratingDTO, HttpStatus.OK);
+		} catch (NoSuchElementException e) {
 			String response = "Rating ID existiert nicht.";
-            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
 		}
-    }
+	}
 
-    @RequestMapping(value = "/rating",
-			method = RequestMethod.POST,
-			consumes = MediaType.APPLICATION_JSON_VALUE,
-			produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Rating> createRating(@RequestBody Rating rating) {
-    	
-        Rating newRating = ratingService.createRating(rating);
-//        model.addAttribute("rating", newRating);
-        return ResponseEntity.ok().body(newRating);
-    }
+	@RequestMapping(value = "/rating", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Rating> createRating(@RequestBody Rating rating, Model model) {
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Rating> updateRating(@PathVariable("id") long id, @RequestBody Rating updatedRating) {
-        Rating rating = ratingService.getRatingById1(id);
-        
-        if (rating == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        
-        rating.setRatingValue(updatedRating.getRatingValue());
-        rating.setPatient(updatedRating.getPatient());
-        
-        
-        Rating savedRating = ratingService.getRatingById1(rating.getId());
-        
-        return new ResponseEntity<>(savedRating, HttpStatus.OK);
-    }
+		Rating newRating = ratingService.createRating(rating);
+		model.addAttribute("rating", newRating);
+		return ResponseEntity.ok().body(newRating);
+	}
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteRating(@PathVariable("ratingId") long ratingId) {
-        Rating ratingOptional = ratingService.getRatingById1(ratingId);
-        if (ratingService.isPresent(ratingOptional) ) {
-            ratingService.deleteRating(ratingId);
-            return ResponseEntity.ok().build();
-        }
-        return ResponseEntity.notFound().build();
-    }
+	@PutMapping("/{id}")
+	public ResponseEntity<Rating> updateRating(@PathVariable("id") long id, @RequestBody Rating updatedRating,
+			Model model) {
+		Rating rating = ratingService.getRatingById1(id);
+
+		if (rating == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
+		rating.setRatingValue(updatedRating.getRatingValue());
+		rating.setPatient(updatedRating.getPatient());
+
+		Rating savedRating = ratingService.getRatingById1(rating.getId());
+		model.addAttribute(savedRating);
+
+		return new ResponseEntity<>(savedRating, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<?> deleteRating(@PathVariable("id") long id, Model model) {
+        Rating ratingOptional = ratingService.getRatingById1(id);
+		
+		if (ratingService.getAllRatings().contains(ratingOptional)) {
+			ratingService.deleteRating(id);
+			return ResponseEntity.ok().build();	
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);	
+		}
+		
+		
+
+        
+	}
 }
-

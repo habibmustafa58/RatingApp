@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Home - Patient</title>
+</head>
+<body>
+	<h1>Welcome Patient!</h1>
+	<p>Here are all doctors and their ratings:</p>
+	<ul>
+		<!-- Loop through doctors -->
+		<th:block th:each="doctor : ${doctors}">
+			<li>
+				<p>Name: <span th:text="${doctor.name}"></span></p>
+				<p>Email: <span th:text="${doctor.email}"></span></p>
+				<p>Average rating: <span th:text="${doctor.averageRating}"></span></p>
+				<!-- If patient is logged in, show rating form -->
+				<th:block th:if="${#authentication.principal.username == 'patient@example.com'}">
+					<form method="post" th:action="@{/rate}">
+						<input type="hidden" th:name="doctorId" th:value="${doctor.id}" />
+						<label for="rating">Rating (1-5):</label>
+						<input type="number" name="rating" min="1" max="5" required />
+						<label for="comment">Comment:</label>
+						<input type="text" name="comment" />
+						<button type="submit">Rate</button>
+					</form>
+				</th:block>
+			</li>
+		</th:block>
+	</ul>
+</body>
+</html>
+

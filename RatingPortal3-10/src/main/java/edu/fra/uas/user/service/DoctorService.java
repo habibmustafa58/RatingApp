@@ -10,8 +10,6 @@ public interface DoctorService {
 	
 	
 	 public List<Rating> getDoctorRatings(long doctorId);
-
-	 public double getAverageRatingForDoctor(long doctorId);
 	 
 	 public List<Doctor> getAllDoctors();
 	 

@@ -43,8 +43,8 @@ public class RatingRepository {
 	        }
 	    }
 	    
-	    public void deleteRating(int id) {
-	        int index = -1;
+	    public void deleteRating(long id) {
+	        int index = 0;
 	        for (int i = 0; i < ratings.size(); i++) {
 	            if (ratings.get(i).getId() == id) {
 	                index = i;
