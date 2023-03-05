@@ -67,7 +67,7 @@ public class LoginController {
 			model.addAttribute("currentUser", user.getEmail());
 			if (user.getPassword().equals(password)) {
 				currentUser.setUsername(email);
-				return "redirect:/home";
+				return "redirect:/home?email=" + user.getEmail();
 			} else {
 				model.addAttribute("error", "invalid password");
 
