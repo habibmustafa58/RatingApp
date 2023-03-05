@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Home - Doctor</title>
+</head>
+<body>
+	<h3>Welcome Doctor!</h3>
+	<p>Here are your ratings:</p>
+	<ul>
+		<th:block th:each="rating : ${ratings}">
+			<li>
+				<p>Patient: <span th:text="${rating.patient.email}"></span></p>
+				<p>Rating: <span th:text="${rating.ratingValue}"></span></p>
+			</li>
+		</th:block>
+	</ul>
+</body>
+</html>
