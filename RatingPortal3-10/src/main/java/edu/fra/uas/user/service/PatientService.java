@@ -16,6 +16,10 @@ public interface PatientService {
 	public Patient updatePatient(long id, Patient patient);
 	
 	public boolean deletePatient(long id);
+
+	Patient findPatientByName(String name);
+
+	Patient findPatientByEmail(String email);
 	
 	
 

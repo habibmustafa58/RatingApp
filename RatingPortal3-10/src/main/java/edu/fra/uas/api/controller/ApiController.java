@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import edu.fra.uas.currentuser.*;
 import edu.fra.uas.rating.dto.RatingDTO;
 import edu.fra.uas.rating.model.Rating;
 import edu.fra.uas.rating.service.RatingService;
@@ -31,6 +32,7 @@ public class ApiController {
 
     @GetMapping("/all")
     public List<Rating> getAllRatings() {
+    	
         return ratingService.getAllRatings();
     }
 
@@ -45,21 +47,38 @@ public class ApiController {
 		}
     }
 
-//    @PostMapping
-//    public Rating createRating(@RequestBody RatingDTO ratingDTO, Model model, String ratingTo ) {
-//       
-//   	
-//    	return ratingService.createRating(ratingDTO);
-//    }
+    @PostMapping("/create")
+    public ResponseEntity<Rating> createRating(@RequestBody Rating rating, Model model) {
+    	
+        Rating newRating = ratingService.createRating(rating);
+        return ResponseEntity.ok().body(newRating);
+    }
 
     @PutMapping("/{id}")
-    public Rating updateRating(@PathVariable long id, @RequestBody RatingDTO ratingDto) {
-        return ratingService.updateRating(id, ratingDto);
+    public ResponseEntity<Rating> updateRating(@PathVariable("id") long id, @RequestBody Rating updatedRating) {
+        Rating rating = ratingService.getRatingById1(id);
+        
+        if (rating == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        
+        rating.setRatingValue(updatedRating.getRatingValue());
+        rating.setPatient(updatedRating.getPatient());
+        
+        
+        Rating savedRating = ratingService.getRatingById1(rating.getId());
+        
+        return new ResponseEntity<>(savedRating, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteRating(@PathVariable long id) {
-        ratingService.deleteRating(id);
+    public ResponseEntity<?> deleteRating(@PathVariable("ratingId") long ratingId) {
+        Rating ratingOptional = ratingService.getRatingById1(ratingId);
+        if (ratingService.isPresent(ratingOptional) ) {
+            ratingService.deleteRating(ratingId);
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 }
 

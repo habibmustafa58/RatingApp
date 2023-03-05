@@ -22,6 +22,10 @@ public interface DoctorService {
 	 public Doctor updateDoctor(long id, Doctor doctor);
 	 
 	 public boolean deleteDoctor(long id);
+
+	Doctor getDoctorByName(String name);
+
+	Doctor findDoctorByEmail(String email);
 	
 	
 	

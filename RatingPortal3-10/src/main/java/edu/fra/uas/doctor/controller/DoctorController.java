@@ -2,9 +2,13 @@ package edu.fra.uas.doctor.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,34 +20,51 @@ import edu.fra.uas.user.service.DoctorService;
 @RestController
 @RequestMapping("/doctors")
 public class DoctorController {
-	
-	
 
-	    private final DoctorService doctorService;
+	@Autowired
+	private final DoctorService doctorService;
 
-	    public DoctorController(DoctorService doctorService) {
-	        this.doctorService = doctorService;
-	    }
+	public DoctorController(DoctorService doctorService) {
+		this.doctorService = doctorService;
+	}
 
-	    @GetMapping ("/all")
-	    public List<Doctor> getAllDoctors() {
-	        return doctorService.getAllDoctors();
-	    }
+	@Autowired
+	private DoctorService userService;
 
-	    @GetMapping("/{id}")
-	    public Doctor getDoctorById(@PathVariable long id) {
-	        return doctorService.getDoctorById(id);
-	    }
+	@GetMapping("/current")
+	public Doctor getCurrentUser() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		return userService.getDoctorByName(username);
+	}
 
+	@PostMapping("/current")
+	public void updateCurrentUser(@RequestBody Doctor doctor) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		Doctor currentUser = doctorService.getDoctorByName(username);
+		currentUser.setPassword(doctor.getPassword());
+		currentUser.setRole(doctor.getRole());
+		doctorService.addDoctor(currentUser);
+	}
 
-	    @PutMapping("/{id}")
-	    public Doctor updateDoctor(@PathVariable long id, @RequestBody Doctor doctor) {
-	        return doctorService.updateDoctor(id, doctor);
-	    }
+	@GetMapping("/all")
+	public List<Doctor> getAllDoctors() {
+		return doctorService.getAllDoctors();
+	}
 
-	    @DeleteMapping("/{id}")
-	    public void deleteDoctor(@PathVariable long id) {
-	        doctorService.deleteDoctor(id);
-	    }
+	@GetMapping("/{id}")
+	public Doctor getDoctorById(@PathVariable long id) {
+		return doctorService.getDoctorById(id);
+	}
+
+	@PutMapping("/{id}")
+	public Doctor updateDoctor(@PathVariable long id, @RequestBody Doctor doctor) {
+		return doctorService.updateDoctor(id, doctor);
+	}
+
+	@DeleteMapping("/{id}")
+	public void deleteDoctor(@PathVariable long id) {
+		doctorService.deleteDoctor(id);
+	}
 }
-

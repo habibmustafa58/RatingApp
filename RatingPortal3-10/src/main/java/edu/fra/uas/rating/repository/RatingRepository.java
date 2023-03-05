@@ -17,7 +17,7 @@ public class RatingRepository {
 	        return ratings;
 	    }
 	    
-	    public Rating getRatingById(int id) {
+	    public Rating getRatingById(long id) {
 	        for (Rating rating : ratings) {
 	            if (rating.getId() == id) {
 	                return rating;
@@ -55,6 +55,8 @@ public class RatingRepository {
 	            ratings.remove(index);
 	        }
 	    }
+	    
+	    
 }
 
 
